@@ -1,0 +1,44 @@
+﻿
+@model List<Book> 
+<h1>Index Pages</h1>
+
+<a class="btn btn-primary" asp-action="Create" asp-controller="Book">Create a new book</a>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col">Description</th>
+      <th scope="col">Create At</th>
+      <th scope="col">Category</th>
+      <th scope="col">Action</th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+   
+    @foreach(var item in Model)
+        {
+          <tr>
+            <th scope="row"></th>         
+                <td>@item.NameBook</td>
+                <td>@item.QuantityBook</td>
+                <td>@item.Price</td>
+                <td>@item.InformationBook</td>
+                <td>@item.CreatedAt</td>
+                <td>@item.Category.NameCategory</td>
+                <td>
+                    <a class="btn btn-dark" asp-action="Update" asp-controller="Book" asp-route-id="@item.Id">Update</a>
+                    <a class="btn btn-dark" asp-action="Detail" asp-controller="Book" asp-route-id="@item.Id">Detail</a>
+                    <a class="btn btn-dark" asp-action="Delete" asp-controller="Book" asp-route-id="@item.Id">Delete</a>
+                </td>
+          </tr>
+        }
+
+  </tbody>
+</table>

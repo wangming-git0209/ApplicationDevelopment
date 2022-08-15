@@ -1,0 +1,57 @@
+﻿
+@model ApplicationDevelopment.Models.Book
+<h1>
+    hello this is create
+</h1>
+
+@{ 
+    var listCategory = ViewData["listCategories"] as List<Category>; 
+}
+
+   
+ <div class="col-md-12">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+    
+            <div class="form-group">
+                <label asp-for="NameBook" class="control-label"></label>
+                <input asp-for="NameBook" class="form-control" />
+                <span asp-validation-for="NameBook" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="QuantityBook" class="control-label"></label>
+                <input asp-for="QuantityBook" class="form-control" />
+                <span asp-validation-for="QuantityBook" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            
+
+            @* <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>*@
+
+            <select asp-for="CategoryId" 
+                asp-items="@(new SelectList(listCategory, nameof(Category.Id), nameof(Category.NameCategory)))">
+                <option>Please select one</option>
+            </select>
+
+             <div class="form-group">
+                <label asp-for="InformationBook" class="control-label"></label>
+                <input asp-for="InformationBook" class="form-control" />
+                <span asp-validation-for="InformationBook" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create new Book" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
