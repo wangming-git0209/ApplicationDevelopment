@@ -14,6 +14,7 @@ namespace ApplicationDevelopment.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
 
        
@@ -45,9 +46,6 @@ namespace ApplicationDevelopment.Data
                 new IdentityRole() { Id = "0d3151ac-ebae-47d5-8bd1-ac783afafee2", Name = Role.STORE_OWNER, ConcurrencyStamp = "3", NormalizedName = Role.STORE_OWNER }
                 );
         }
-
-       
-    
 
 
         public DbSet<Book> Books { get; set; }

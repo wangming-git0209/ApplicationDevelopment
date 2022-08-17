@@ -1,5 +1,6 @@
 ﻿using ApplicationDevelopment.Data;
 using ApplicationDevelopment.Models;
+using ApplicationDevelopment.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -18,11 +19,17 @@ namespace ApplicationDevelopment.Controllers
         }
 
 
-        //public async Task<IActionResult> IndexAsync()
-        //{
-        //    var usersInRole = await _userManager.GetUsersInRoleAsync("Customer");
+        public async Task<IActionResult> IndexAsync()
+        {
+            var usersInRole = await _userManager.GetUsersInRoleAsync(Role.CUSTOMER);
+             
+            return View(usersInRole);
+        }       
 
-        //}       
 
+        public IActionResult SendCategoryRequest()
+        {
+            return View();
+        }
     }
 }

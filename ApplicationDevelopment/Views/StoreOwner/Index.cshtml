@@ -1,5 +1,33 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<h1> this is Store Owner Page</h1>
+
+@model IEnumerable<ApplicationUser> 
+
+
+<a class="btn-primary btn" asp-action="SendCategoryRequest" asp-controller="StoreOwner">Send Category Request</a>
+
+ <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">ID</th>
+      <th scope="col">Full Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Address</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+   
+    @foreach(var item in Model)
+        {
+          <tr>
+            <th scope="row"></th>         
+                <td>@item.Id</td>
+                <td>@item.FullName</td>
+                <td>@item.Email</td>
+                <td>@item.Address</td>          
+          </tr>
+        }
+
+  </tbody>
+</table>
