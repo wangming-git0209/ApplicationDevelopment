@@ -114,6 +114,10 @@ namespace ApplicationDevelopment.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
+                    b.Property<string>("ProfilePicture")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("QuantityBook")
                         .HasColumnType("int");
 

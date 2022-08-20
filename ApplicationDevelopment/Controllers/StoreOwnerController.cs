@@ -11,7 +11,7 @@ namespace ApplicationDevelopment.Controllers
     public class StoreOwnerController : Controller
     {
         public ApplicationDbContext _context;
-        public UserManager<ApplicationUser> _userManager; 
+        public UserManager<ApplicationUser> _userManager;
 
         public StoreOwnerController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -40,24 +40,25 @@ namespace ApplicationDevelopment.Controllers
             }
             return await SearchCustomerAsync(searchString);
 
-            
+
         }
 
+        [NonAction]
         public async Task<IActionResult> SearchCustomerAsync(string searchString)
         {
-            List<ApplicationUser> listCustomer = new List<ApplicationUser>(); 
+            List<ApplicationUser> listCustomer = new List<ApplicationUser>();
             if (searchString == null)
             {
                 return NotFound();
             }
             var customer = await _userManager.FindByEmailAsync(searchString);
-            listCustomer.Add(customer); 
+            listCustomer.Add(customer);
 
-            return View("Index", listCustomer); 
+            return View("Index", listCustomer);
         }
 
 
-        [HttpGet]          
+        [HttpGet]
         public IActionResult SendCategoryRequest()
         {
             return View();
@@ -66,7 +67,7 @@ namespace ApplicationDevelopment.Controllers
         [HttpPost]
         public IActionResult SendCategoryRequest(Category category)
         {
-            if(category == null)
+            if (category == null)
             {
                 return BadRequest();
             }
@@ -80,6 +81,12 @@ namespace ApplicationDevelopment.Controllers
             _context.SaveChanges();
 
             return View(newCategory);
+        }
+
+        [HttpGet]
+        public IActionResult ListCustomerOrder()
+        {
+            return View();
         }
     }
 }

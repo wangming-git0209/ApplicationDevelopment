@@ -1,8 +1,13 @@
 ﻿using ApplicationDevelopment.Data;
 using ApplicationDevelopment.Models;
+using ApplicationDevelopment.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace ApplicationDevelopment.Controllers
@@ -10,10 +15,30 @@ namespace ApplicationDevelopment.Controllers
     public class BookController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
+        public IFormFile ProfileImage { get; set; }
 
-        public BookController(ApplicationDbContext context)
+        public BookController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            webHostEnvironment = hostEnvironment;
+        }
+
+        private string UploadedFile(BookViewModel model)
+        {
+            string uniqueFileName = null;
+
+            if (model.ProfileImage != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileImage.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
 
         [HttpGet]
@@ -44,17 +69,20 @@ namespace ApplicationDevelopment.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Book book)
+        public IActionResult Create(BookViewModel model)
         {
 
-            var newBook = new Book
+            string uniqueFileName = UploadedFile(model);
+
+            Book newBook = new Book
             {
-                NameBook = book.NameBook,
-                InformationBook = book.InformationBook,
-                Price = book.Price,
-                QuantityBook = book.QuantityBook,
-                CategoryId = book.CategoryId,
-                CreatedAt = System.DateTime.Now
+                NameBook = model.book.NameBook,
+                InformationBook = model.book.InformationBook,
+                Price = model.book.Price,
+                QuantityBook = model.book.QuantityBook,
+                CategoryId = model.book.CategoryId,
+                CreatedAt = System.DateTime.Now,
+                ProfilePicture = uniqueFileName,
 
             };
 

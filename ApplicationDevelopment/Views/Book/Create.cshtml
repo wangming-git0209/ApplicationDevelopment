@@ -1,57 +1,84 @@
-﻿
-@model ApplicationDevelopment.Models.Book
-<h1>
-    hello this is create
-</h1>
+﻿@model ApplicationDevelopment.ViewModels.BookViewModel
 
-@{ 
-    var listCategory = ViewData["listCategories"] as List<Category>; 
+
+<h1>  hello this is create</h1>
+
+@{
+    var listCategory = ViewData["listCategories"] as List<Category>;
 }
 
-   
- <div class="col-md-12">
-        <form asp-action="Create" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-    
-            <div class="form-group">
-                <label asp-for="NameBook" class="control-label"></label>
-                <input asp-for="NameBook" class="form-control" />
-                <span asp-validation-for="NameBook" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="QuantityBook" class="control-label"></label>
-                <input asp-for="QuantityBook" class="form-control" />
-                <span asp-validation-for="QuantityBook" class="text-danger"></span>
-            </div>
+<div class="col-md-10 mx-auto py-4">
+    <div class="card">
+        <div class="card-header bg-primary text-uppercase text-white">
+            <h4>Add New </h4>
+        </div>
+        <div class="card-body">
+            <form enctype="multipart/form-data" asp-action="Create">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.book.NameBook" class="control-label"></label>
+                            <input asp-for="@Model.book.NameBook" class="form-control" />
+                            <span asp-validation-for="@Model.book.NameBook" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.book.Price" class="control-label"></label>
+                            <input asp-for="@Model.book.Price" class="form-control" />
+                            <span asp-validation-for="@Model.book.Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.book.InformationBook" class="control-label"></label>
+                            <input asp-for="@Model.book.InformationBook" class="form-control" />
+                            <span asp-validation-for="@Model.book.InformationBook" class="text-danger"></span>
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            
-
-            @* <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
-                <span asp-validation-for="Category" class="text-danger"></span>
-            </div>*@
-
-            <select asp-for="CategoryId" 
-                asp-items="@(new SelectList(listCategory, nameof(Category.Id), nameof(Category.NameCategory)))">
-                <option>Please select one</option>
-            </select>
-
-             <div class="form-group">
-                <label asp-for="InformationBook" class="control-label"></label>
-                <input asp-for="InformationBook" class="form-control" />
-                <span asp-validation-for="InformationBook" class="text-danger"></span>
-            </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.book.Category" class="control-label"></label>
+                            <select asp-for="@Model.book.CategoryId"
+                                    asp-items="@(new SelectList(listCategory, nameof(Category.Id), nameof(Category.NameCategory)))">
+                                <option>Please select one</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
 
 
-            <div class="form-group">
-                <input type="submit" value="Create new Book" class="btn btn-primary" />
-            </div>
-        </form>
-    </div> 
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ProfileImage" class="control-label"></label>
+                            <div class="custom-file">
+                                <input asp-for="ProfileImage" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                            <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.book.QuantityBook" class="control-label"></label>
+                            <input asp-for="@Model.book.QuantityBook" class="form-control" />
+                            <span asp-validation-for="@Model.book.QuantityBook" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="submit" class="btn btn-sm btn-primary rounded-0 text-uppercase" />
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+

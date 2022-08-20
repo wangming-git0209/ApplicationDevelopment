@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System;
+using Microsoft.AspNetCore.Http;
 
 namespace ApplicationDevelopment.Models
 {
@@ -18,7 +19,10 @@ namespace ApplicationDevelopment.Models
         public string InformationBook { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-    
+        [Required(ErrorMessage = "Please choose profile image")]
+        [Display(Name = "Profile Picture")]
+        public string ProfilePicture { get; set; }
+
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
